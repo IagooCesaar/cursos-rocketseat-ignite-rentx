@@ -5,7 +5,7 @@ const categoriesRoutes = Router();
 
 const categories = [];
 
-categoriesRoutes.post("/categories", (req: Request, res: Response) => {
+categoriesRoutes.post("/", (req: Request, res: Response) => {
   const { name, description } = req.body;
 
   const category = {
