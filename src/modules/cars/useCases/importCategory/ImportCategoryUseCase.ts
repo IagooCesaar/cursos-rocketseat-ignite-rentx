@@ -1,10 +1,10 @@
-import csvParte from "csv-parse";
+import csvParse from "csv-parse";
 import fs from "fs";
 
 class ImportCategoryUseCase {
   execute(file: Express.Multer.File): void {
     const stream = fs.createReadStream(file.path);
-    const parseFile = csvParte({
+    const parseFile = csvParse({
       delimiter: ",",
     });
 
