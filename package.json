@@ -8,6 +8,7 @@
     "@types/multer": "^1.4.5",
     "csv-parse": "^4.15.3",
     "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
     "multer": "^1.4.2",
     "pg": "^8.5.1",
     "reflect-metadata": "^0.1.13",
@@ -17,7 +18,7 @@
     "uuid": "^8.3.2"
   },
   "scripts": {
-    "predev":"ts-node-dev typeorm migration:run",
+    "predev": "ts-node-dev typeorm migration:run",
     "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn ./src/server.ts",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli",
     "lint:fix": "eslint --fix . --ext ts,tsx"
