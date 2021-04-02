@@ -4,9 +4,10 @@ import swaggerUi from "swagger-ui-express";
 import "express-async-errors";
 
 import "./database";
-import "./shared/container";
+import "@shared/container";
 
-import { handlingErrors } from "./middlewares/handlingErrors";
+import { handlingErrors } from "@middlewares/handlingErrors";
+
 import { router } from "./routes";
 import swaggerFile from "./swagger.json";
 
