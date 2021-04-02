@@ -12,17 +12,11 @@
       "@config/*": [
         "config/*"
       ],
-      "@errors/*": [
-        "errors/*"
-      ],
       "@shared/*": [
         "shared/*"
       ],
       "@utils/*": [
         "utils/*"
-      ],
-      "@middlewares/*": [
-        "middlewares/*"
       ]
     },
     "esModuleInterop": true,
