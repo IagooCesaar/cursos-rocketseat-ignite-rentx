@@ -22,7 +22,13 @@ describe("Create car use case", () => {
   });
 
   it("Should be able to create a new car", async () => {
-    await createCarUseCase.execute(mockCar);
+    const car = await createCarUseCase.execute(mockCar);
+    expect(car).toHaveProperty("id");
+  });
+
+  it("Should be able to create a new car as available by default", async () => {
+    const car = await createCarUseCase.execute(mockCar);
+    expect(car.available).toBe(true);
   });
 
   it("Should not be able to create with license_plate already in use", async () => {
