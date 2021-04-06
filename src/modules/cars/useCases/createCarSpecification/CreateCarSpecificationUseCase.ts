@@ -1,4 +1,6 @@
+import { Car } from "@modules/cars/infra/typeorm/entities/Car";
 import { ICarsRepository } from "@modules/cars/repositories/ICarsRepository";
+import { ISpecificationsRepository } from "@modules/cars/repositories/ISpecificationsRepository";
 import { AppError } from "@shared/errors/appError";
 
 interface IRequest {
@@ -7,13 +9,27 @@ interface IRequest {
 }
 
 class CreateCarSpecificationUseCase {
-  constructor(private carsRepository: ICarsRepository) {}
+  constructor(
+    private carsRepository: ICarsRepository,
+    private specificationRepository: ISpecificationsRepository
+  ) {}
 
-  async execute({ car_id, specifications_ids }: IRequest): Promise<void> {
-    const car = this.carsRepository.findById(car_id);
+  async execute({ car_id, specifications_ids }: IRequest): Promise<Car> {
+    const car = await this.carsRepository.findById(car_id);
     if (!car) {
       throw new AppError("Car does not exists");
     }
+
+    const specifications = await this.specificationRepository.findByIds(
+      specifications_ids
+    );
+    if (specifications.length === 0) {
+      throw new AppError("Can not find specifications");
+    }
+
+    car.specifications = specifications;
+    await this.carsRepository.create(car);
+    return car;
   }
 }
 
