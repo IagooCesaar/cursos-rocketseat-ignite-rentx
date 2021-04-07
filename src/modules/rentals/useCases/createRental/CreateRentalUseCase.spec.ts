@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import { UsersRepositoryInMemory } from "@modules/accounts/repositories/in-memory/UsersRepositoryInMemory";
 import { CarsRepositoryInMemory } from "@modules/cars/repositories/in-memory/CarsRepositoryInMemory";
 import { RentalsRepositoryInMemory } from "@modules/rentals/repositories/in-memory/RentalsRepositoryInMemory";
+import { DayjsDateProvider } from "@shared/container/providers/DateProvider/implementations/DayJsDateProvider";
 import { AppError } from "@shared/errors/appError";
 
 import { CreateRentalUseCase } from "./CreateRentalUseCase";
@@ -11,6 +12,7 @@ let createRentalUseCase: CreateRentalUseCase;
 let carsRepository: CarsRepositoryInMemory;
 let usersRepository: UsersRepositoryInMemory;
 let rentalsRepository: RentalsRepositoryInMemory;
+let dateProvider: DayjsDateProvider;
 
 const mockCar = {
   name: "Car Name",
@@ -36,10 +38,12 @@ describe("Create Rental Use Case", () => {
     carsRepository = new CarsRepositoryInMemory();
     usersRepository = new UsersRepositoryInMemory();
     rentalsRepository = new RentalsRepositoryInMemory();
+    dateProvider = new DayjsDateProvider();
     createRentalUseCase = new CreateRentalUseCase(
       rentalsRepository,
       carsRepository,
-      usersRepository
+      usersRepository,
+      dateProvider
     );
   });
 
