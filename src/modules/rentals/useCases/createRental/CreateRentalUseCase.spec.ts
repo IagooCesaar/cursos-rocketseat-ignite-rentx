@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+
 import { UsersRepositoryInMemory } from "@modules/accounts/repositories/in-memory/UsersRepositoryInMemory";
 import { CarsRepositoryInMemory } from "@modules/cars/repositories/in-memory/CarsRepositoryInMemory";
 import { RentalsRepositoryInMemory } from "@modules/rentals/repositories/in-memory/RentalsRepositoryInMemory";
@@ -27,6 +29,8 @@ const mockUser = {
   driver_license: "123456",
 };
 
+const dayAdd24hours = dayjs().add(24, "hours").toDate();
+
 describe("Create Rental Use Case", () => {
   beforeEach(() => {
     carsRepository = new CarsRepositoryInMemory();
@@ -46,7 +50,7 @@ describe("Create Rental Use Case", () => {
     const rental = await createRentalUseCase.execute({
       user_id: user.id,
       car_id: car.id,
-      expected_return_date: new Date(),
+      expected_return_date: dayAdd24hours,
     });
 
     expect(rental).toHaveProperty("id");
@@ -63,13 +67,13 @@ describe("Create Rental Use Case", () => {
       await createRentalUseCase.execute({
         user_id: user.id,
         car_id: car1.id,
-        expected_return_date: new Date(),
+        expected_return_date: dayAdd24hours,
       });
 
       await createRentalUseCase.execute({
         user_id: user.id,
         car_id: car2.id,
-        expected_return_date: new Date(),
+        expected_return_date: dayAdd24hours,
       });
     }).rejects.toBeInstanceOf(AppError);
   });
@@ -85,11 +89,24 @@ describe("Create Rental Use Case", () => {
       await createRentalUseCase.execute({
         user_id: user1.id,
         car_id: car.id,
-        expected_return_date: new Date(),
+        expected_return_date: dayAdd24hours,
       });
 
       await createRentalUseCase.execute({
         user_id: user2.id,
+        car_id: car.id,
+        expected_return_date: dayAdd24hours,
+      });
+    }).rejects.toBeInstanceOf(AppError);
+  });
+
+  it("Should not be able to create a new rental with duration less then 24 hours", async () => {
+    expect(async () => {
+      const user = await usersRepository.create(mockUser);
+      const car = await carsRepository.create(mockCar);
+
+      const rental = await createRentalUseCase.execute({
+        user_id: user.id,
         car_id: car.id,
         expected_return_date: new Date(),
       });

@@ -1,8 +1,13 @@
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
 import { ICarsRepository } from "@modules/cars/repositories/ICarsRepository";
 import { Rental } from "@modules/rentals/infra/typeorm/entities/Rental";
 import { IRentalsRepository } from "@modules/rentals/infra/typeorm/repositories/IRentalsRepository";
 import { AppError } from "@shared/errors/appError";
+
+dayjs.extend(utc);
 
 interface IRequest {
   user_id: string;
@@ -44,6 +49,20 @@ class CreateRentalUseCase {
     );
     if (userOccupied) {
       throw new AppError("There's a rental is progress for user");
+    }
+
+    const expectedReturnDateUTC = dayjs(expected_return_date)
+      .utc()
+      .local()
+      .format();
+    const dateNowUTC = dayjs().utc().local().format();
+    const compare = dayjs(expectedReturnDateUTC).diff(dateNowUTC, "hours");
+    const rentalMinDurationHours = 24;
+
+    if (compare < rentalMinDurationHours) {
+      throw new AppError(
+        `A rental must have at least ${rentalMinDurationHours} hours of duration`
+      );
     }
 
     const rental = await this.rentalsRepository.create({
