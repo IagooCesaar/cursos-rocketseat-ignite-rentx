@@ -22,6 +22,4 @@ app.use(router);
 
 app.use(handlingErrors);
 
-app.listen(3333, () => {
-  console.log("Server is running 🚀");
-});
+export default app;
