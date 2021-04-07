@@ -22,4 +22,4 @@ app.use(router);
 
 app.use(handlingErrors);
 
-export default app;
+export { app };
