@@ -20,6 +20,7 @@ services:
     container_name: rentx
     ports:
       - 3333:3333
+      - 9229:9229
     volumes:
       - .:/usr/app
     networks:
