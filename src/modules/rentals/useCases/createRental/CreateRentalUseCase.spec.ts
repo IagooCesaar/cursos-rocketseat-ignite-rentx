@@ -31,7 +31,7 @@ const mockUser = {
   driver_license: "123456",
 };
 
-const dayAdd24hours = dayjs().add(24, "hours").toDate();
+const dayAdd24hours = dayjs().add(25, "hours").toDate();
 
 describe("Create Rental Use Case", () => {
   beforeEach(() => {
