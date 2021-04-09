@@ -28,7 +28,7 @@
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli",
     "seed:admin": "ts-node-dev src/shared/infra/typeorm/seeds/admin.ts",
     "lint:fix": "eslint --fix . --ext ts,tsx",
-    "test": "cross-env NODE_ENV=test jest"
+    "test": "cross-env NODE_ENV=test jest --runInBand"
   },
   "devDependencies": {
     "@types/express": "^4.17.11",
