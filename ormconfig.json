@@ -17,5 +17,7 @@
   "migrationsTableName": "_migrations",
   "cli": {
     "migrationsDir": "./src/shared/infra/typeorm/migrations"
-  }
+  },
+
+  "logging": false
 }
