@@ -190,6 +190,53 @@
           "400":{"description": "Car already exists"}
         }
       }
+    },
+    "/cars/images/{id}":{
+      "post":{
+        "tags":["Cars"],
+        "summary": "Upload images for a car",
+        "description": "Upload one or mor images for a car",
+        "security":[
+          { "bearerAuth": []}
+        ],
+        "parameters":[
+          {
+            "name":"id",
+            "in": "path",
+            "description": "Id of a valid car",
+            "required": true,
+            "schema": {
+              "type":"string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties":{
+                  "images": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Can not upload images"
+          }
+        }
+      }
     }
   },
   "definitions": {
