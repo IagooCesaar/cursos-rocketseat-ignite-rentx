@@ -1,7 +1,7 @@
 import { CarsRepositoryInMemory } from "@modules/cars/repositories/in-memory/CarsRepositoryInMemory";
-import { AppError } from "@shared/errors/appError";
 
-import { CreateCarUseCase } from "./createCarUseCase";
+import { CreateCarError } from "./CreateCarError";
+import { CreateCarUseCase } from "./CreateCarUseCase";
 
 let createCarUseCase: CreateCarUseCase;
 let carsRepositoryInMemory: CarsRepositoryInMemory;
@@ -35,6 +35,6 @@ describe("Create car use case", () => {
     expect(async () => {
       await createCarUseCase.execute(mockCar);
       await createCarUseCase.execute(mockCar);
-    }).rejects.toBeInstanceOf(AppError);
+    }).rejects.toBeInstanceOf(CreateCarError);
   });
 });
