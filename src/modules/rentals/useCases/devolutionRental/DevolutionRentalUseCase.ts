@@ -48,7 +48,7 @@ class DevolutionRentalUseCase {
       total += totalFineAmount;
     }
 
-    total += daily + car.daily_rate;
+    total += daily * car.daily_rate;
 
     rental.end_date = dateNow;
     rental.total = total;
