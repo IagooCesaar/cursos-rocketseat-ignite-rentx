@@ -3,7 +3,8 @@ import { inject, injectable } from "tsyringe";
 import { Car } from "@modules/cars/infra/typeorm/entities/Car";
 import { ICarsRepository } from "@modules/cars/repositories/ICarsRepository";
 import { ISpecificationsRepository } from "@modules/cars/repositories/ISpecificationsRepository";
-import { AppError } from "@shared/errors/appError";
+
+import { CreateCarSpecificationError } from "./CreateCarSpecificationError";
 
 interface IRequest {
   car_id: string;
@@ -22,14 +23,14 @@ class CreateCarSpecificationUseCase {
   async execute({ car_id, specifications_ids }: IRequest): Promise<Car> {
     const car = await this.carsRepository.findById(car_id);
     if (!car) {
-      throw new AppError("Car does not exists");
+      throw new CreateCarSpecificationError.CarNotFound();
     }
 
     const specifications = await this.specificationRepository.findByIds(
       specifications_ids
     );
     if (specifications.length === 0) {
-      throw new AppError("Can not find specifications");
+      throw new CreateCarSpecificationError.SpecificationNotFound();
     }
 
     car.specifications = specifications;

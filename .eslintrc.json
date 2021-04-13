@@ -83,5 +83,6 @@
         "import/resolver": {
             "typescript": {}
         }
-    }
+    },
+    "allowDeclarations": true
 }
