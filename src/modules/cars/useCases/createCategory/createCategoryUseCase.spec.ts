@@ -1,5 +1,5 @@
 import { CategoriesRepositoryInMemory } from "@modules/cars/repositories/in-memory/CategoriesRepositoryInMemory";
-import { AppError } from "@shared/errors/appError";
+import { CreateCategoryError } from "./CreateCategoryError";
 
 import { CreateCategoryUseCase } from "./CreateCategoryUseCase";
 
@@ -36,6 +36,6 @@ describe("Create Category Use Case", () => {
 
     await expect(
       createCategoryUseCase.execute(newCategory)
-    ).rejects.toBeInstanceOf(AppError);
+    ).rejects.toBeInstanceOf(CreateCategoryError);
   });
 });

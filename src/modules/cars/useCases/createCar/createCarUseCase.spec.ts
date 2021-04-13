@@ -32,9 +32,10 @@ describe("Create car use case", () => {
   });
 
   it("Should not be able to create with license_plate already in use", async () => {
-    expect(async () => {
-      await createCarUseCase.execute(mockCar);
-      await createCarUseCase.execute(mockCar);
-    }).rejects.toBeInstanceOf(CreateCarError);
+    await createCarUseCase.execute(mockCar);
+
+    await expect(     
+      createCarUseCase.execute(mockCar)
+    ).rejects.toBeInstanceOf(CreateCarError);
   });
 });
