@@ -17,6 +17,13 @@ class DayjsDateProvider implements IDateProvider {
     return dayjs().toDate();
   }
 
+  addDays(days: number, reference_date: Date = null): Date {
+    const date = reference_date 
+      ? dayjs(reference_date) 
+      : dayjs();
+    return date.add(days, "day").toDate()
+  }
+
   convertToUTC(date: Date): string {
     return dayjs(date).utc().local().format();
   }
