@@ -1,9 +1,9 @@
 import { ICreateUserDTO } from "@modules/accounts/dtos/ICreateUserDTO";
 import { UsersRepositoryInMemory } from "@modules/accounts/repositories/in-memory/UsersRepositoryInMemory";
-import { AppError } from "@shared/errors/appError";
 
 import { CreateUserUseCase } from "../createUser/createUserUseCase";
-import { AuthenticateUserUseCase } from "./authenticateUserUseCase";
+import { AuthenticateUserError } from "./AuthenticateUserError";
+import { AuthenticateUserUseCase } from "./AuthenticateUserUseCase";
 
 let usersRepositoryInMemory: UsersRepositoryInMemory;
 let authenticateUserUseCase: AuthenticateUserUseCase;
@@ -35,29 +35,29 @@ describe("Authenticate User Use Case", () => {
     expect(result).toHaveProperty("token");
   });
 
-  it("Should not permit a nonexistent user to authenticate", () => {
-    expect(async () => {
-      await authenticateUserUseCase.execute({
+  it("Should not permit a nonexistent user to authenticate", async () => {
+    await expect(
+      authenticateUserUseCase.execute({
         email: "false@test.com",
         password: "secret",
-      });
-    }).rejects.toBeInstanceOf(AppError);
+      })
+    ).rejects.toBeInstanceOf(AuthenticateUserError);
   });
 
-  it("Should not be able to authenticate a user with incorrect password", () => {
-    expect(async () => {
-      const user: ICreateUserDTO = {
-        driver_license: "00123",
-        email: "user@test.com",
-        name: "User Test",
-        password: "1234",
-      };
+  it("Should not be able to authenticate a user with incorrect password", async () => {
+    const user: ICreateUserDTO = {
+      driver_license: "00123",
+      email: "user@test.com",
+      name: "User Test",
+      password: "1234",
+    };
+    await createUserUseCase.execute(user);
 
-      await createUserUseCase.execute(user);
-      await authenticateUserUseCase.execute({
+    expect(
+      authenticateUserUseCase.execute({
         email: user.email,
         password: "incorrect",
-      });
-    }).rejects.toBeInstanceOf(AppError);
+      })
+    ).rejects.toBeInstanceOf(AuthenticateUserError);
   });
 });
