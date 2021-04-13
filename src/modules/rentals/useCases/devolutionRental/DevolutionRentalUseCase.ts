@@ -5,6 +5,7 @@ import { Rental } from "@modules/rentals/infra/typeorm/entities/Rental";
 import { IRentalsRepository } from "@modules/rentals/repositories/IRentalsRepository";
 import { IDateProvider } from "@shared/container/providers/DateProvider/IDateProvider";
 import { AppError } from "@shared/errors/appError";
+import { DevolutionRentalError } from "./DevolutionRentalError";
 
 interface IRequest {
   id: string;
@@ -27,7 +28,7 @@ class DevolutionRentalUseCase {
   async execute({ id, user_id }: IRequest): Promise<Rental> {
     const rental = await this.rentalsRepository.findById(id);
     if (!rental) {
-      throw new AppError("Rental does not exists");
+      throw new DevolutionRentalError();
     }
     const car = await this.carsRepository.findById(rental.car_id);
 
