@@ -18,21 +18,10 @@ export async function ensureAuthenticated(
   if (!authHeader) {
     throw new EnsureAuthenticatedError.TokenMissing();
   }
+
   const [, token] = authHeader.split(" ");
   try {
-    const { sub: user_id } = verify(
-      token,
-      auth.secret_refresh_token
-    ) as IPayload;
-
-    const usersTokensRepository = new UsersTokensRepository();
-    const user = await usersTokensRepository.findByUserIdAndRefreshToken(
-      user_id,
-      token
-    );
-    if (!user) {
-      throw new EnsureAuthenticatedError.UserNotExists();
-    }
+    const { sub: user_id } = verify(token, auth.secret_token) as IPayload;
 
     request.user = {
       id: user_id,
