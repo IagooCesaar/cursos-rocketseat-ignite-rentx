@@ -5,6 +5,7 @@ import { ICarsRepository } from "@modules/cars/repositories/ICarsRepository";
 import { Rental } from "@modules/rentals/infra/typeorm/entities/Rental";
 import { IRentalsRepository } from "@modules/rentals/repositories/IRentalsRepository";
 import { IDateProvider } from "@shared/container/providers/DateProvider/IDateProvider";
+
 import { CreateRentalError } from "./CreateRentalError";
 
 interface IRequest {
@@ -65,7 +66,9 @@ class CreateRentalUseCase {
     const rentalMinDurationHours = 24;
 
     if (compare < rentalMinDurationHours) {
-      throw new CreateRentalError.DurationLessThenMinimum(rentalMinDurationHours);
+      throw new CreateRentalError.DurationLessThenMinimum(
+        rentalMinDurationHours
+      );
     }
 
     const rental = await this.rentalsRepository.create({

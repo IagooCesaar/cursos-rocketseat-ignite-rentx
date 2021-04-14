@@ -1,10 +1,17 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
-import {v4 as uuidV4 } from "uuid"
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryColumn,
+} from "typeorm";
+import { v4 as uuidV4 } from "uuid";
+
 import { User } from "./User";
 
 @Entity("users_tokens")
 class UsersTokens {
-
   @PrimaryColumn()
   id: string;
 
@@ -15,7 +22,7 @@ class UsersTokens {
   user_id: string;
 
   @ManyToOne(() => User)
-  @JoinColumn({name: "user_id"})
+  @JoinColumn({ name: "user_id" })
   user: User;
 
   @Column()
@@ -31,4 +38,4 @@ class UsersTokens {
   }
 }
 
-export { UsersTokens }
+export { UsersTokens };

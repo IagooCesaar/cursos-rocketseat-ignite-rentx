@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
 
-import { UsersRepository } from "@modules/accounts/infra/repositories/UsersRepository";
-import { AppError } from "@shared/errors/appError";
+import auth from "@config/auth";
+import { UsersTokensRepository } from "@modules/accounts/infra/repositories/UsersTokensRepository";
 import { EnsureAuthenticatedError } from "@shared/errors/EnsureAuthenticatedError";
 
 interface IPayload {
@@ -22,11 +22,14 @@ export async function ensureAuthenticated(
   try {
     const { sub: user_id } = verify(
       token,
-      "d3acee670ad999360c2b5315b8f5b71c"
+      auth.secret_refresh_token
     ) as IPayload;
 
-    const usersRepository = new UsersRepository();
-    const user = await usersRepository.findById(user_id);
+    const usersTokensRepository = new UsersTokensRepository();
+    const user = await usersTokensRepository.findByUserIdAndRefreshToken(
+      user_id,
+      token
+    );
     if (!user) {
       throw new EnsureAuthenticatedError.UserNotExists();
     }

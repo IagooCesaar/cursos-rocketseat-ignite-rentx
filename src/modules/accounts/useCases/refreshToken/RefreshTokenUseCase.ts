@@ -1,9 +1,11 @@
+import { sign, verify } from "jsonwebtoken";
 import { inject, injectable } from "tsyringe";
-import { sign, verify } from 'jsonwebtoken'
-import { IUsersTokensRepository } from "@modules/accounts/repositories/IUsersTokensRepository";
+
 import auth from "@config/auth";
-import { RefreshTokenError } from "./RefreshTokenError";
+import { IUsersTokensRepository } from "@modules/accounts/repositories/IUsersTokensRepository";
 import { IDateProvider } from "@shared/container/providers/DateProvider/IDateProvider";
+
+import { RefreshTokenError } from "./RefreshTokenError";
 
 interface IPayload {
   sub: string;
@@ -18,36 +20,42 @@ class RefreshTokenUseCase {
 
     @inject("DayjsDateProvider")
     private dateProvider: IDateProvider
-  ){};
+  ) {}
 
   async execute(token: string): Promise<string> {
-    const {email, sub: user_id} = verify(token, auth.secret_refresh_token) as IPayload;
+    const { email, sub: user_id } = verify(
+      token,
+      auth.secret_refresh_token
+    ) as IPayload;
 
-    const userToken = await this.usersTokensRepository
-      .findByUserIdAndRefreshToken(user_id, token)
+    const userToken = await this.usersTokensRepository.findByUserIdAndRefreshToken(
+      user_id,
+      token
+    );
     if (!userToken) {
-      throw new RefreshTokenError()
+      throw new RefreshTokenError();
     }
 
     await this.usersTokensRepository.deleteById(userToken.id);
 
-    const refresh_token = sign({email }, auth.secret_refresh_token, {
+    const refresh_token = sign({ email }, auth.secret_refresh_token, {
       subject: user_id,
-      expiresIn: auth.expires_in_refresh_token
-    })
+      expiresIn: auth.expires_in_refresh_token,
+    });
 
     const expires_date = this.dateProvider.addDays(
-      auth.expires_refresh_token_days, null
-    )
+      auth.expires_refresh_token_days,
+      null
+    );
 
     await this.usersTokensRepository.create({
       refresh_token,
       user_id,
-      expires_date
-    })
+      expires_date,
+    });
 
     return refresh_token;
-  } 
+  }
 }
 
-export { RefreshTokenUseCase }
+export { RefreshTokenUseCase };

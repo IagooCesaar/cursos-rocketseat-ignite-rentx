@@ -18,10 +18,8 @@ class DayjsDateProvider implements IDateProvider {
   }
 
   addDays(days: number, reference_date: Date = null): Date {
-    const date = reference_date 
-      ? dayjs(reference_date) 
-      : dayjs();
-    return date.add(days, "day").toDate()
+    const date = reference_date ? dayjs(reference_date) : dayjs();
+    return date.add(days, "day").toDate();
   }
 
   convertToUTC(date: Date): string {

@@ -4,4 +4,4 @@ interface ICreateUserTokenDTO {
   refresh_token: string;
 }
 
-export { ICreateUserTokenDTO }
+export { ICreateUserTokenDTO };

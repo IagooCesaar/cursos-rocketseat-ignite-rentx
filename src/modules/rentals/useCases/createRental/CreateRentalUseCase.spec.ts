@@ -6,8 +6,8 @@ import { RentalsRepositoryInMemory } from "@modules/rentals/repositories/in-memo
 import { DayjsDateProvider } from "@shared/container/providers/DateProvider/implementations/DayJsDateProvider";
 import { AppError } from "@shared/errors/appError";
 
-import { CreateRentalUseCase } from "./CreateRentalUseCase";
 import { CreateRentalError } from "./CreateRentalError";
+import { CreateRentalUseCase } from "./CreateRentalUseCase";
 
 let createRentalUseCase: CreateRentalUseCase;
 let carsRepository: CarsRepositoryInMemory;
