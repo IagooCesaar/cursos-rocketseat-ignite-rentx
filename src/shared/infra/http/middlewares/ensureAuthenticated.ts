@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
 
 import auth from "@config/auth";
-import { UsersTokensRepository } from "@modules/accounts/infra/repositories/UsersTokensRepository";
 import { EnsureAuthenticatedError } from "@shared/errors/EnsureAuthenticatedError";
 
 interface IPayload {
