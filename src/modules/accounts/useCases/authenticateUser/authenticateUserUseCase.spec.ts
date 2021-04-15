@@ -67,5 +67,5 @@ describe("Authenticate User Use Case", () => {
         password: "incorrect",
       })
     ).rejects.toBeInstanceOf(AuthenticateUserError);
-  });
+  }, 15000);
 });
