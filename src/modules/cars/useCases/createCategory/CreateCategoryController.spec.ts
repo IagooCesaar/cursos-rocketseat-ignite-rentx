@@ -8,24 +8,30 @@ import createConnection from "@shared/infra/typeorm";
 
 let connection: Connection;
 
+const userData = {
+  email: "admin@rentx.com.br",
+  password: "admin"
+}
+const jestTimeoutInMS = 50 * 1000;
+
 describe("Create Category Controller", () => {
   beforeAll(async () => {
     connection = await createConnection();
     await connection.runMigrations();
 
     const id = uuidV4();
-    const password = await hash("admin", 10);
+    const hashPassword = await hash(userData.password, 10);
 
-    await connection.query(`
+    const queryResult = await connection.query(`
       INSERT INTO USERS(
         id, name, email, password, 
         "isAdmin", driver_license, created_at
       ) values (
-        '${id}', 'admin', 'admin@rentx.com.br', '${password}', 
+        '${id}', 'admin', '${userData.email}', '${hashPassword}', 
         true, 'license-admin', 'now()'
       )
     `);
-  });
+  },jestTimeoutInMS);
 
   afterAll(async () => {
     await connection.dropDatabase();
@@ -34,10 +40,9 @@ describe("Create Category Controller", () => {
 
   it("Should be able to create a Category", async () => {
     const responseToken = await request(app).post("/sessions").send({
-      email: "admin@rentx.com.br",
-      password: "admin",
+      email: userData.email,
+      password: userData.password,
     });
-
     const { token } = responseToken.body;
 
     const response = await request(app)
@@ -51,7 +56,7 @@ describe("Create Category Controller", () => {
       });
 
     expect(response.status).toBe(201);
-  });
+  },jestTimeoutInMS);
 
   it("Should not be able to create a Category with exactly name as before", async () => {
     const responseToken = await request(app).post("/sessions").send({
@@ -72,5 +77,5 @@ describe("Create Category Controller", () => {
       });
 
     expect(response.status).toBe(400);
-  });
+  },jestTimeoutInMS);
 });

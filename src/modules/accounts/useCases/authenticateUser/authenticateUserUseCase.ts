@@ -46,7 +46,6 @@ class AuthenticateUserUseCase {
     } = auth;
 
     const user = await this.usersRepository.findByEmail(email);
-
     if (!user) {
       throw new AuthenticateUserError();
     }
