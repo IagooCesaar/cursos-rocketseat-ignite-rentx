@@ -4,7 +4,6 @@ import { ICreateUserDTO } from "../../dtos/ICreateUserDTO";
 import { IUsersRepository } from "../IUsersRepository";
 
 class UsersRepositoryInMemory implements IUsersRepository {
-  
   users: User[] = [];
 
   async getAll(): Promise<User[]> {

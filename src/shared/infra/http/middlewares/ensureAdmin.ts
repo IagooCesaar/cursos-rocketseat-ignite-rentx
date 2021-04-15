@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 
 import { UsersRepository } from "@modules/accounts/infra/repositories/UsersRepository";
-import { AppError } from "@shared/errors/appError";
 import { EnsureAdminError } from "@shared/errors/EnsureAdminError";
 
 export async function ensureAdmin(

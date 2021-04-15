@@ -4,7 +4,6 @@ import { ICarsRepository } from "@modules/cars/repositories/ICarsRepository";
 import { Rental } from "@modules/rentals/infra/typeorm/entities/Rental";
 import { IRentalsRepository } from "@modules/rentals/repositories/IRentalsRepository";
 import { IDateProvider } from "@shared/container/providers/DateProvider/IDateProvider";
-import { AppError } from "@shared/errors/appError";
 
 import { DevolutionRentalError } from "./DevolutionRentalError";
 

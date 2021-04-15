@@ -13,7 +13,7 @@ class UsersRepository implements IUsersRepository {
   }
 
   async getAll(): Promise<User[]> {
-    return await this.repository.find()
+    return this.repository.find();
   }
 
   async findById(id: string): Promise<User> {

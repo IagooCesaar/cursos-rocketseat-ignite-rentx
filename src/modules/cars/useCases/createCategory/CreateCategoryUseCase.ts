@@ -1,7 +1,6 @@
 import { inject, injectable } from "tsyringe";
 
 import { ICategoriesRepository } from "@modules/cars/repositories/ICategoriesRepository";
-import { AppError } from "@shared/errors/appError";
 
 import { CreateCategoryError } from "./CreateCategoryError";
 

@@ -6,7 +6,7 @@ interface IUsersRepository {
   findByEmail(email: string): Promise<User>;
   findById(id: string): Promise<User>;
 
-  getAll(): Promise<User[]>
+  getAll(): Promise<User[]>;
 }
 
 export { IUsersRepository };

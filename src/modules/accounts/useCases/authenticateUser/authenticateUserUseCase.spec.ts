@@ -3,9 +3,9 @@ import { UsersRepositoryInMemory } from "@modules/accounts/repositories/in-memor
 import { UsersTokensRepositoryInMemory } from "@modules/accounts/repositories/in-memory/UsersTokensRepositoryInMemory";
 import { DayjsDateProvider } from "@shared/container/providers/DateProvider/implementations/DayJsDateProvider";
 
-import { CreateUserUseCase } from "../createUser/CreateUserUseCase";
+import { CreateUserUseCase } from "../createUser/createUserUseCase";
 import { AuthenticateUserError } from "./AuthenticateUserError";
-import { AuthenticateUserUseCase } from "./AuthenticateUserUseCase";
+import { AuthenticateUserUseCase } from "./authenticateUserUseCase";
 
 let usersRepositoryInMemory: UsersRepositoryInMemory;
 let authenticateUserUseCase: AuthenticateUserUseCase;
@@ -41,7 +41,7 @@ describe("Authenticate User Use Case", () => {
     });
 
     expect(result).toHaveProperty("token");
-  },50000);
+  }, 50000);
 
   it("Should not permit a nonexistent user to authenticate", async () => {
     await expect(
