@@ -52,6 +52,7 @@ class SendForgotPasswordMailUseCase {
       name: user.name,
       link: `${process.env.FORGOT_MAIL_URL}${token}`,
     };
+    // FORGOT_MAIL_URL = http://localhost:3333/password/reset?token=
 
     await this.mailProvider.sendMail({
       to: user.email,
