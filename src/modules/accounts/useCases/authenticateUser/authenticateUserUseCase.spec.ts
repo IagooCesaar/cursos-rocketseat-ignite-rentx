@@ -18,6 +18,7 @@ describe("Authenticate User Use Case", () => {
     usersRepositoryInMemory = new UsersRepositoryInMemory();
     dateProvider = new DayjsDateProvider();
     usersTokensRepositoryInMemory = new UsersTokensRepositoryInMemory();
+
     authenticateUserUseCase = new AuthenticateUserUseCase(
       usersRepositoryInMemory,
       usersTokensRepositoryInMemory,
