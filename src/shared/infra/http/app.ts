@@ -1,4 +1,5 @@
 import "reflect-metadata";
+import "dotenv/config";
 import express, { Request, Response } from "express";
 import path from "path";
 import swaggerUi from "swagger-ui-express";
