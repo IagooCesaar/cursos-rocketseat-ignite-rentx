@@ -32,7 +32,7 @@ class SESMailProvider implements IMailProvider {
 
     await this.client.sendMail({
       to,
-      from: "Rentx <iago.nogueira@inogueira.dev.br",
+      from: "Rentx <iago.nogueira@inogueira.dev.br>",
       subject,
       html: templateHtml,
     });
