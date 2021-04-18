@@ -1,12 +1,12 @@
+import "express-async-errors";
 import "reflect-metadata";
 import "dotenv/config";
+import "@shared/container";
+
 import express, { Request, Response } from "express";
 import path from "path";
 import swaggerUi from "swagger-ui-express";
 
-import "express-async-errors";
-
-import "@shared/container";
 import upload from "@config/upload";
 import { handlingErrors } from "@shared/infra/http/middlewares/handlingErrors";
 import createConnection from "@shared/infra/typeorm";
@@ -44,8 +44,8 @@ app.get("/api-coverage", (request: Request, response: Response) => {
     )
   );
 });
-app.use(router);
 
 app.use(handlingErrors);
+app.use(router);
 
 export { app };
