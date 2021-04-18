@@ -45,7 +45,7 @@ app.get("/api-coverage", (request: Request, response: Response) => {
   );
 });
 
-app.use(handlingErrors);
 app.use(router);
+app.use(handlingErrors);
 
 export { app };
