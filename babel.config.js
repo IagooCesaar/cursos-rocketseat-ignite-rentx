@@ -6,10 +6,12 @@ module.exports = {
   plugins: [
     ["module-resolver",
     {
-      "@modules": "./src/modules",
-      "@config": "./src/config",
-      "@shared": "./src/shared",
-      "@utils": "./src/utils"
+      alias: {
+        "@modules": "./src/modules",
+        "@config": "./src/config",
+        "@shared": "./src/shared",
+        "@utils": "./src/utils"
+      }
     }],
     "babel-plugin-transform-typescript-metadata",
     ["@babel/plugin-proposal-decorators", {
