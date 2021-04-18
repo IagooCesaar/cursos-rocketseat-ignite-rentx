@@ -142,8 +142,8 @@ dist/
 .vscode-test
 
 # Temporary folders
-tmp/
-temp/
+tmp/*
+temp/*
 
 ### VisualStudioCode ###
 .vscode/*
