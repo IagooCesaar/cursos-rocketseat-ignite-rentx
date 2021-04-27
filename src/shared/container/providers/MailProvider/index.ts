@@ -1,8 +1,8 @@
 import { container } from "tsyringe";
 
 import { IMailProvider } from "./IMailProvider";
-import { EtherealMailProvider } from "./implementatios/EtherealMailProvider";
-import { SESMailProvider } from "./implementatios/SESMailProvider";
+import { EtherealMailProvider } from "./implementations/EtherealMailProvider";
+import { SESMailProvider } from "./implementations/SESMailProvider";
 
 const mailProvider = {
   ethereal: container.resolve(EtherealMailProvider),

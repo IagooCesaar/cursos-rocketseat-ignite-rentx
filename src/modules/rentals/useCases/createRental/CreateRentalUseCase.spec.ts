@@ -67,7 +67,7 @@ describe("Create Rental Use Case", () => {
     mockCar.name = "another";
     const car2 = await carsRepository.create(mockCar);
 
-    const cars = await carsRepository.findAvailable();
+    await carsRepository.findAvailable();
 
     await createRentalUseCase.execute({
       user_id: user.id,

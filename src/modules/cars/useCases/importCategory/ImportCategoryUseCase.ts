@@ -3,7 +3,6 @@ import fs from "fs";
 import { inject, injectable } from "tsyringe";
 
 import { CategoriesRepository } from "@modules/cars/infra/typeorm/repositories/CategoriesRepository";
-import { IStorageProvider } from "@shared/container/providers/StorageProvider/IStorageProvider";
 
 interface IImportCategory {
   name: string;
