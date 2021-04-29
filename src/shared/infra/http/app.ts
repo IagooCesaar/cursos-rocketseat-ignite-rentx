@@ -3,6 +3,7 @@ import "reflect-metadata";
 import "dotenv/config";
 import "@shared/container";
 
+import cors from "cors";
 import express, { Request, Response } from "express";
 import path from "path";
 import swaggerUi from "swagger-ui-express";
@@ -45,6 +46,7 @@ app.get("/api-coverage", (request: Request, response: Response) => {
   );
 });
 
+app.use(cors());
 app.use(router);
 app.use(handlingErrors);
 
