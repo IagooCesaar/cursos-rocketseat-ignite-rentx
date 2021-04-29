@@ -13,12 +13,14 @@ import { handlingErrors } from "@shared/infra/http/middlewares/handlingErrors";
 import createConnection from "@shared/infra/typeorm";
 
 import swaggerFile from "../../../swagger.json";
+import rateLimiter from "./middlewares/rateLimiter";
 import { router } from "./routes";
 
 createConnection();
 
 const app = express();
 
+app.use(rateLimiter);
 app.use(express.json());
 
 app.use("/avatar", express.static(`${upload.tmpFolder}/avatar`));
