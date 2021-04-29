@@ -22,6 +22,9 @@ jobs:
       - name: Install dependencies
         run: yarn
 
+      - name: Checking containers
+        run: docker-compose up -d
+
       - name: Build the project
         run: yarn build
 
