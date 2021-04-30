@@ -5,8 +5,11 @@
   "author": "Iago César Fernandes Nogueira <iagocesar.sgs@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@sentry/node": "^6.3.4",
+    "@sentry/tracing": "^6.3.4",
     "@types/cors": "^2.8.10",
     "@types/multer": "^1.4.5",
+    "add": "^2.0.6",
     "aws-sdk": "^2.888.0",
     "bcryptjs": "^2.4.3",
     "class-transformer": "^0.4.0",
@@ -31,7 +34,8 @@
     "ts-jest": "^26.5.4",
     "tsyringe": "^4.5.0",
     "typeorm": "^0.2.31",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "yarn": "^1.22.10"
   },
   "scripts": {
     "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files ",
